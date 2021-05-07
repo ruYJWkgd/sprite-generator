@@ -2,16 +2,12 @@ import os
 import sys
 import re
 
-# 
-# This will take in a folder of SVGs and create a sprite file that holds the SVGs
-# 
-
 regex_to_get_viewbox_size = re.compile('viewBox=\"([\d\s\.]*)\"')
 regex_to_get_svg_contents = re.compile('<svg.*?>(.*)</svg>')
 sprite_content = '<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">\n'
 
 print("Enter the path to the folder containing the SVGs you want to create a sprite from")
-folder_holding_svgs = input("Path: ").replace("'", '"').replace("\\", "").rstrip() # clean the input string
+folder_holding_svgs = input("Path: ").replace("'", '"').replace("\\", "").rstrip() # clean the input string to ensure it is in the correct format
 
 # Move into that folder
 os.chdir(folder_holding_svgs)
