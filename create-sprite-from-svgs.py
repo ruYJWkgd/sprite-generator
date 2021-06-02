@@ -16,10 +16,10 @@ print("Creating sprite file...")
 for each_svg_file in os.listdir(folder_holding_svgs):
   if each_svg_file.endswith("svg"):
     # Open the SVG
-    file_objet = open(each_svg_file, "r")
+    file_object = open(each_svg_file, "r")
 
     # Read the contents
-    text_from_file = file_objet.read()
+    text_from_file = file_object.read()
 
     # Make the SVG a single line of text
     text_from_file = text_from_file.replace("\n", "")
