@@ -34,7 +34,7 @@ for each_svg_file in os.listdir(folder_holding_svgs):
     svg_content = regex_to_get_svg_contents.search(text_from_file).group(1)
 
     # Put that content into the sprite_content
-    sprite_content = sprite_content + "\t" + '<symbol id="' + svg_filename + '" viewBox="' + viewbox_size + '">' + svg_content + '</symbol>\n'
+    sprite_content = sprite_content + "\t" + '<symbol id="' + svg_filename.lower() + '" viewBox="' + viewbox_size + '">' + svg_content + '</symbol>\n'
 
 # Add the ending tag to the sprite file
 sprite_content = sprite_content + '</svg>\n'
