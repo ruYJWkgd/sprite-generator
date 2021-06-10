@@ -4,6 +4,9 @@ import re
 
 regex_to_get_viewbox_size = re.compile('viewBox=\"([\d\s\.]*)\"')
 regex_to_get_svg_contents = re.compile('<svg.*?>(.*)</svg>')
+regex_to_get_style_contents = re.compile('<style>(.*)</style>')
+regex_to_get_style_class_name = re.compile('\.(.*?){')
+regex_to_get_style_class_style = re.compile('{(.*?)}')
 sprite_content = '<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">\n'
 
 print("Enter the path to the folder containing the SVGs you want to create a sprite from")
@@ -32,6 +35,20 @@ for each_svg_file in os.listdir(folder_holding_svgs):
 
     # Pull out the content between the opening and closing SVG tags
     svg_content = regex_to_get_svg_contents.search(text_from_file).group(1)
+
+    # Pull out the content between the opening and closing style tags
+    style_content = regex_to_get_style_contents.search(text_from_file).group(1)
+
+    # Find the classes in a style tag
+    class_names_list = regex_to_get_style_class_name.findall(style_content)
+    class_styles_list = regex_to_get_style_class_style.findall(style_content)
+
+    # Replace those classes with the actual style
+    for index in range(len(class_names_list)):
+      svg_content = svg_content.replace('class="' + class_names_list[index] + '"', 'style="' + class_styles_list[index] + '"')
+
+    # Remove the style tag section (since we don't need it anymore)
+    svg_content = re.sub("<style>.*</style>", "", svg_content)
 
     # Put that content into the sprite_content
     sprite_content = sprite_content + "\t" + '<symbol id="' + svg_filename.lower() + '" viewBox="' + viewbox_size + '">' + svg_content + '</symbol>\n'
