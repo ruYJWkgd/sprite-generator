@@ -5,7 +5,7 @@ import re
 regex_to_get_viewbox_size = re.compile('viewBox=\"([\d\s\.]*)\"')
 regex_to_get_svg_contents = re.compile('<svg.*?>(.*)</svg>')
 regex_to_get_style_contents = re.compile('<style>(.*)</style>')
-regex_to_get_style_class_name = re.compile('\.(.*?){')
+regex_to_get_style_class_name = re.compile('\.([a-zA-Z0-9_\s\-]*?){')
 regex_to_get_style_class_style = re.compile('{(.*?)}')
 sprite_content = '<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">\n'
 
@@ -29,7 +29,7 @@ for each_svg_file in os.listdir(folder_holding_svgs):
 
     # get the file name and extension
     svg_filename, svg_fileext = os.path.splitext(each_svg_file)
-    
+
     # pull out the viewbox data
     viewbox_size = regex_to_get_viewbox_size.search(text_from_file).group(1)
 
