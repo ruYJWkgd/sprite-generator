@@ -29,23 +29,29 @@ for each_svg_file in os.listdir(folder_holding_svgs):
 
     # get the file name and extension
     svg_filename, svg_fileext = os.path.splitext(each_svg_file)
+    # Replace bad characters in the filename with good characters
+    svg_filename = svg_filename.replace('&', 'and')
 
     # pull out the viewbox data
-    viewbox_size = regex_to_get_viewbox_size.search(text_from_file).group(1)
+    if regex_to_get_viewbox_size.regex_to_get_svg_contents:
+      viewbox_size = regex_to_get_viewbox_size.search(text_from_file).group(1)
 
     # Pull out the content between the opening and closing SVG tags
-    svg_content = regex_to_get_svg_contents.search(text_from_file).group(1)
+    if regex_to_get_svg_contents.search(text_from_file):
+      svg_content = regex_to_get_svg_contents.search(text_from_file).group(1)
 
     # Pull out the content between the opening and closing style tags
-    style_content = regex_to_get_style_contents.search(text_from_file).group(1)
+    if regex_to_get_style_contents.search(text_from_file):
+      style_content = regex_to_get_style_contents.search(text_from_file).group(1)
 
     # Find the classes in a style tag
-    class_names_list = regex_to_get_style_class_name.findall(style_content)
-    class_styles_list = regex_to_get_style_class_style.findall(style_content)
+    if regex_to_get_style_class_name.search(text_from_file) and regex_to_get_style_class_style.search(text_from_file):
+      class_names_list = regex_to_get_style_class_name.findall(style_content)
+      class_styles_list = regex_to_get_style_class_style.findall(style_content)
 
-    # Replace those classes with the actual style
-    for index in range(len(class_names_list)):
-      svg_content = svg_content.replace('class="' + class_names_list[index] + '"', 'style="' + class_styles_list[index] + '"')
+      # Replace those classes with the actual style
+      for index in range(len(class_names_list)):
+        svg_content = svg_content.replace('class="' + class_names_list[index] + '"', 'style="' + class_styles_list[index] + '"')
 
     # Remove the style tag section (since we don't need it anymore)
     svg_content = re.sub("<style>.*</style>", "", svg_content)
