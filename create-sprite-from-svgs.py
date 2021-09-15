@@ -33,7 +33,7 @@ for each_svg_file in os.listdir(folder_holding_svgs):
     svg_filename = svg_filename.replace('&', 'and')
 
     # pull out the viewbox data
-    if regex_to_get_viewbox_size.regex_to_get_svg_contents:
+    if regex_to_get_viewbox_size.search(text_from_file):
       viewbox_size = regex_to_get_viewbox_size.search(text_from_file).group(1)
 
     # Pull out the content between the opening and closing SVG tags
