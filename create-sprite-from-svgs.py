@@ -66,9 +66,6 @@ sprite_content = sprite_content + '</svg>\n'
 with open('svg_sprite.svg', 'w') as f:
   f.write(sprite_content)
 
-# Close the opened file
-f.close()
-
 # Check to make sure the sprite file is now in the folder
 if os.path.exists("svg_sprite.svg"):
   print("Sprite creation complete")
