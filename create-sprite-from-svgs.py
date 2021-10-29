@@ -7,7 +7,7 @@ regex_to_get_svg_contents = re.compile('<svg.*?>(.*)</svg>')
 regex_to_get_style_contents = re.compile('<style>(.*)</style>')
 regex_to_get_style_class_name = re.compile('\.([a-zA-Z0-9_\s\-]*?){')
 regex_to_get_style_class_style = re.compile('{(.*?)}')
-sprite_content = '<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0">\n'
+sprite_content = '<svg xmlns="http://www.w3.org/2000/svg" style="display: block" width="0" height="0">\n'
 
 print("Enter the path to the folder containing the SVGs you want to create a sprite from")
 folder_holding_svgs = input("Path: ").replace("'", '"').replace("\\", "").rstrip() # clean the input string to ensure it is in the correct format
